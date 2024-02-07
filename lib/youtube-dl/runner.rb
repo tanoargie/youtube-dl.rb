@@ -60,6 +60,8 @@ module YoutubeDL
     # @return [String] the output of youtube-dl
     def run
       cocaine_line(options_to_commands).run(@options.store)
+    rescue Terrapin::ExitStatusError => e
+      raise e
     end
     alias download run
 

@@ -105,6 +105,8 @@ module YoutubeDL
 
     def grab_information_without_download # :nodoc:
       set_information_from_json(YoutubeDL::Runner.new(url, runner_options.with({ skip_download: true })).run)
+    rescue Terrapin::ExitStatusError => e
+      StandardError.new(e.message)
     end
   end
 end
