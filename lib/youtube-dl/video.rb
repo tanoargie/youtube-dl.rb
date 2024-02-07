@@ -15,7 +15,7 @@ module YoutubeDL
         video.download
         video
       end
-      alias_method :get, :download
+      alias get download
     end
 
     # @return [YoutubeDL::Options] Download Options for the last download
@@ -33,19 +33,19 @@ module YoutubeDL
 
     # Download the video.
     def download
-      raise ArgumentError.new('url cannot be nil') if @url.nil?
-      raise ArgumentError.new('url cannot be empty') if @url.empty?
+      raise ArgumentError, 'url cannot be nil' if @url.nil?
+      raise ArgumentError, 'url cannot be empty' if @url.empty?
 
       set_information_from_json(YoutubeDL::Runner.new(url, runner_options).run)
     end
 
-    alias_method :get, :download
+    alias get download
 
     # Returns the expected filename
     #
     # @return [String] Filename downloaded to
     def filename
-      self._filename
+      _filename
     end
 
     # Metadata information for the video, gotten from --print-json
@@ -71,7 +71,7 @@ module YoutubeDL
       end
     end
 
-  private
+    private
 
     # Add in other default options here.
     def default_options
@@ -83,15 +83,15 @@ module YoutubeDL
     end
 
     def banned_keys
-      [
-        :get_url,
-        :get_title,
-        :get_id,
-        :get_thumbnail,
-        :get_description,
-        :get_duration,
-        :get_filename,
-        :get_format
+      %i[
+        get_url
+        get_title
+        get_id
+        get_thumbnail
+        get_description
+        get_duration
+        get_filename
+        get_format
       ]
     end
 
@@ -104,7 +104,7 @@ module YoutubeDL
     end
 
     def grab_information_without_download # :nodoc:
-      set_information_from_json(YoutubeDL::Runner.new(url, runner_options.with({skip_download: true})).run)
+      set_information_from_json(YoutubeDL::Runner.new(url, runner_options.with({ skip_download: true })).run)
     end
   end
 end

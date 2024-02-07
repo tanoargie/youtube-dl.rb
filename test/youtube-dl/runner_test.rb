@@ -11,13 +11,13 @@ describe YoutubeDL::Runner do
 
   describe '#initialize' do
     it 'should take options as a hash yet still have configuration blocks work' do
-      r = YoutubeDL::Runner.new(TEST_URL, {some_key: 'some value'})
+      r = YoutubeDL::Runner.new(TEST_URL, { some_key: 'some value' })
       r.options.configure do |c|
         c.another_key = 'another_value'
       end
 
-      assert_includes r.to_command, "--some-key"
-      assert_includes r.to_command, "--another-key"
+      assert_includes r.to_command, '--some-key'
+      assert_includes r.to_command, '--another-key'
     end
   end
 
@@ -33,17 +33,17 @@ describe YoutubeDL::Runner do
 
   describe '#backend_runner=, #backend_runner' do
     it 'should set cocaine runner' do
-      @runner.backend_runner = Cocaine::CommandLine::BackticksRunner.new
-      assert_instance_of Cocaine::CommandLine::BackticksRunner, @runner.backend_runner
+      @runner.backend_runner = Terrapin::CommandLine::BackticksRunner.new
+      assert_instance_of Terrapin::CommandLine::BackticksRunner, @runner.backend_runner
 
-      @runner.backend_runner = Cocaine::CommandLine::PopenRunner.new
-      assert_instance_of Cocaine::CommandLine::PopenRunner, @runner.backend_runner
+      @runner.backend_runner = Terrapin::CommandLine::PopenRunner.new
+      assert_instance_of Terrapin::CommandLine::PopenRunner, @runner.backend_runner
     end
   end
 
   describe '#to_command' do
     it 'should parse key-values from options' do
-      @runner.options.some_key = "a value"
+      @runner.options.some_key = 'a value'
 
       refute_nil @runner.to_command.match(/--some-key\s.*a value.*/)
     end
@@ -51,13 +51,13 @@ describe YoutubeDL::Runner do
     it 'should handle true boolean values' do
       @runner.options.truthy_value = true
 
-      assert_match(/youtube-dl .*--truthy-value\s--|\"http.*/, @runner.to_command)
+      assert_match(/youtube-dl .*--truthy-value\s--|"http.*/, @runner.to_command)
     end
 
     it 'should handle false boolean values' do
       @runner.options.false_value = false
 
-      assert_match(/youtube-dl .*--no-false-value\s--|\"http.*/, @runner.to_command)
+      assert_match(/youtube-dl .*--no-false-value\s--|"http.*/, @runner.to_command)
     end
 
     it 'should not have newline char in to_command' do
@@ -70,7 +70,7 @@ describe YoutubeDL::Runner do
       @runner.options.output = TEST_FILENAME
       @runner.options.format = TEST_FORMAT
       @runner.run
-      assert File.exists? TEST_FILENAME
+      assert File.exist? TEST_FILENAME
     end
   end
 

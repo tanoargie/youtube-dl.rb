@@ -1,4 +1,4 @@
-require 'cocaine'
+require 'terrapin'
 require 'json'
 require 'ostruct'
 
@@ -26,7 +26,7 @@ module YoutubeDL
     end
   end
 
-  alias_method :get, :download
+  alias get download
 
   # Lists extractors
   #

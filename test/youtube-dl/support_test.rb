@@ -19,13 +19,13 @@ describe YoutubeDL::Support do
       Dir.mktmpdir do |tmpdir|
         FileUtils.cp vendor_bin, tmpdir
 
-        old_path = ENV["PATH"]
-        ENV["PATH"] = "#{tmpdir}:#{old_path}"
+        old_path = ENV['PATH']
+        ENV['PATH'] = "#{tmpdir}:#{old_path}"
 
         usable_path = @klass.usable_executable_path_for('youtube-dl')
         assert_match usable_path, "#{tmpdir}/youtube-dl"
 
-        ENV["PATH"] = old_path
+        ENV['PATH'] = old_path
       end
     end
 
@@ -35,13 +35,13 @@ describe YoutubeDL::Support do
   end
 
   describe '#cocaine_line' do
-    it 'should return a Cocaine::CommandLine instance' do
-      assert_instance_of Cocaine::CommandLine, @klass.cocaine_line('')
+    it 'should return a Terrapin::CommandLine instance' do
+      assert_instance_of Terrapin::CommandLine, @klass.cocaine_line('')
     end
 
     it 'should be able to override the executable' do
       line = @klass.cocaine_line('hello', 'echo')
-      assert_equal "echo hello", line.command
+      assert_equal 'echo hello', line.command
     end
 
     it 'should default to youtube-dl' do
@@ -58,7 +58,7 @@ describe YoutubeDL::Support do
 
   describe '#which' do
     it 'should find a proper executable' do
-      assert File.exists?(@klass.which('ls'))
+      assert File.exist?(@klass.which('ls'))
     end
   end
 end

@@ -8,7 +8,7 @@ group :test do
 end
 
 group :extras do
+  gem 'm'
   gem 'pry'
   gem 'pry-byebug'
-  gem 'm'
 end
