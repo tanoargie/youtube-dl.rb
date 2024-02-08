@@ -53,6 +53,8 @@ module YoutubeDL
     # @return [OpenStruct] information
     def information
       @information || grab_information_without_download
+    rescue YoutubeDL::YoutubeDLError => e
+      e
     end
 
     # Redirect methods for information getting
@@ -105,8 +107,6 @@ module YoutubeDL
 
     def grab_information_without_download # :nodoc:
       set_information_from_json(YoutubeDL::Runner.new(url, runner_options.with({ skip_download: true })).run)
-    rescue Terrapin::ExitStatusError => e
-      StandardError.new(e.message)
     end
   end
 end

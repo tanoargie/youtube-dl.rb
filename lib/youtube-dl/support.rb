@@ -55,4 +55,10 @@ module YoutubeDL
       nil
     end
   end
+
+  class YoutubeDLError < StandardError
+    def initialize(msg = 'Standard YoutubeDLError')
+      super(msg)
+    end
+  end
 end
