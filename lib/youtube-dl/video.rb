@@ -103,6 +103,8 @@ module YoutubeDL
 
     def set_information_from_json(json) # :nodoc:
       @information = JSON.parse(json, symbolize_names: true)
+    rescue JSON::ParserError => e
+      raise YoutubeDLError, e.message
     end
 
     def grab_information_without_download # :nodoc:
